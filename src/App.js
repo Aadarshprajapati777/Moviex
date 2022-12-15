@@ -1,3 +1,4 @@
+
 import { useEffect, useState} from "react";
 import './App.css';
 import SearchIcon from './search.svg';
@@ -13,16 +14,19 @@ const App=()=>{
     const[movies,setmovies]=useState([])
     const[searchTerm, setsearchTerm]=useState("");
 
+
+
+ useEffect(()=>{
+ searchmovies('dhoom')
+ },[]);
+ 
+
+
  const searchmovies=async(title)=>{
-    const response= await fetch(`${API_URL}&s={title}`);
+    const response= await fetch(`${API_URL}&s=${title}`);
     const data= await response.json();
     setmovies(data.Search);
  }
-
- useEffect(()=>{
- searchmovies('')
- },[])
-
 
     return(
         <div className="app">
@@ -47,11 +51,11 @@ const App=()=>{
                             <MovieCard movie={movie}/>
                         ))}
                     </div>
-                    ) :
+                    ) :(
                     <div className="empty">
                         <h2>Movie not found</h2>
                     </div>
-                }
+                     ) }
 
         </div>   
     );
